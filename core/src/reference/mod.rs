@@ -15,3 +15,5 @@ reference_enum!(MagicItem);
 reference_enum!(Spell);
 
 reference_enum!(Trait);
+
+reference_enum!(Feature);
