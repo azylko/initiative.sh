@@ -168,12 +168,11 @@ pub fn run(input: TokenStream) -> Result<TokenStream, String> {
             .collect(),
         "Feature" => srd_5e::features()?
             .iter()
-            .filter(|t| !t.has_parent())
-            .map(|t| {
+            .map(|feature| {
                 EntryBuilder::default()
-                    .with_ident(&t.token())
-                    .with_name(t.name.to_owned())
-                    .with_details(&t.display_details())
+                    .with_ident(&feature.token())
+                    .with_name(feature.name.to_owned())
+                    .with_details(&feature.display_details())
                     .into_entry()
                     .unwrap()
             })
