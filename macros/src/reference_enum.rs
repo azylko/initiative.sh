@@ -166,6 +166,17 @@ pub fn run(input: TokenStream) -> Result<TokenStream, String> {
                     .unwrap()
             })
             .collect(),
+        "Feature" => srd_5e::features()?
+            .iter()
+            .map(|feature| {
+                EntryBuilder::default()
+                    .with_ident(&feature.token())
+                    .with_name(feature.name.to_owned())
+                    .with_details(&feature.display_details())
+                    .into_entry()
+                    .unwrap()
+            })
+            .collect(),
         _ => unimplemented!(),
     };
 

@@ -1,4 +1,4 @@
-use super::{Condition, Item, ItemCategory, MagicItem, Spell, Trait};
+use super::{Condition, Item, ItemCategory, MagicItem, Spell, Trait, Feature};
 use crate::app::{
     AppMeta, Autocomplete, AutocompleteSuggestion, CommandMatches, ContextAwareParse, Runnable,
 };
@@ -18,6 +18,7 @@ pub enum ReferenceCommand {
     Spell(Spell),
     Spells,
     Trait(Trait),
+    Feature(Feature),
 }
 
 #[async_trait(?Send)]
@@ -36,6 +37,7 @@ impl Runnable for ReferenceCommand {
             Self::Spell(spell) => (format!("{}", spell), spell.get_name()),
             Self::Spells => (Spell::get_list().to_string(), "This listing"),
             Self::Trait(t) => (t.to_string(), t.get_name()),
+            Self::Feature(f) => (f.to_string(), f.get_name()),
         };
 
         Ok(format!(
@@ -83,7 +85,13 @@ impl ContextAwareParse for ReferenceCommand {
             .and_then(|s| s.parse().ok())
         {
             CommandMatches::new_canonical(Self::Trait(character_trait))
-        } else {
+        } else if let Some(character_feature) = input
+            .strip_prefix_ci("srd feature ")
+            .and_then(|s| s.parse().ok())
+        {
+            CommandMatches::new_canonical(Self::Feature(character_feature))
+        }
+         else {
             CommandMatches::default()
         };
 
@@ -104,6 +112,9 @@ impl ContextAwareParse for ReferenceCommand {
         }
         if let Ok(character_trait) = input.parse() {
             matches.push_fuzzy(Self::Trait(character_trait));
+        }
+        if let Ok(character_feature) = input.parse() {
+            matches.push_fuzzy(Self::Feature(character_feature));
         }
         if input.eq_ci("spells") {
             matches.push_fuzzy(Self::Spells);
@@ -127,6 +138,7 @@ impl Autocomplete for ReferenceCommand {
         .chain(ItemCategory::get_words().zip(repeat("SRD item category")))
         .chain(MagicItem::get_words().zip(repeat("SRD magic item")))
         .chain(Trait::get_words().zip(repeat("SRD trait")))
+        .chain(Feature::get_words().zip(repeat("SRD feature")))
         .filter(|(term, _)| term.starts_with_ci(input))
         .take(10)
         .map(|(term, summary)| AutocompleteSuggestion::new(term, summary))
@@ -145,6 +157,7 @@ impl fmt::Display for ReferenceCommand {
             Self::Spell(spell) => write!(f, "srd spell {}", spell.get_name()),
             Self::Spells => write!(f, "srd spells"),
             Self::Trait(species_trait) => write!(f, "srd trait {}", species_trait.get_name()),
+            Self::Feature(class_feature) => write!(f, "srd feature {}", class_feature.get_name()),
         }
     }
 }
