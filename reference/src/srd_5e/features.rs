@@ -1,5 +1,6 @@
 use super::{write_text_block, Reference};
-use serde::Deserialize;  
+use serde::Deserialize;
+use std::fmt;
 
 #[derive(Debug, Deserialize)]
 pub struct Feature {
@@ -13,8 +14,6 @@ pub struct Feature {
 
     #[serde(default)]
     parent: Option<Reference>,
-
-
 }
 
 pub struct SummaryView<'a>(&'a Feature);
@@ -52,13 +51,13 @@ impl<'a> fmt::Display for DetailsView<'a> {
 
         writeln!(f, "# {}", class_feature.name)?;
 
-        write!(f, "\n\n**Class:** {}", class_feature.class.name)?;
+        write!(f, "\n**Class:** {}", class_feature.class.name)?;
 
         if let Some(subclass) = &class_feature.subclass {
             write!(f, "\n**Subclass:** {}", subclass.name)?;
         }
 
-        write!(f, "\\\n**Level:** {}", class_feature.level)?;
+        write!(f, "\n**Level:** {}", class_feature.level)?;
 
         if !class_feature.desc.is_empty() {
             write!(f, "\n\n")?;

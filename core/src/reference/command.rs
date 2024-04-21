@@ -1,4 +1,4 @@
-use super::{Condition, Item, ItemCategory, MagicItem, Spell, Trait, Feature};
+use super::{Condition, Feature, Item, ItemCategory, MagicItem, Spell, Trait};
 use crate::app::{
     AppMeta, Autocomplete, AutocompleteSuggestion, CommandMatches, ContextAwareParse, Runnable,
 };
@@ -90,8 +90,7 @@ impl ContextAwareParse for ReferenceCommand {
             .and_then(|s| s.parse().ok())
         {
             CommandMatches::new_canonical(Self::Feature(character_feature))
-        }
-         else {
+        } else {
             CommandMatches::default()
         };
 
