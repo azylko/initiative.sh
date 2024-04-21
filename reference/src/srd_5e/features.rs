@@ -54,10 +54,10 @@ impl<'a> fmt::Display for DetailsView<'a> {
         write!(f, "\n**Class:** {}", class_feature.class.name)?;
 
         if let Some(subclass) = &class_feature.subclass {
-            write!(f, "\n**Subclass:** {}", subclass.name)?;
+            write!(f, "\\\n**Subclass:** {}", subclass.name)?;
         }
 
-        write!(f, "\n**Level:** {}", class_feature.level)?;
+        write!(f, "\\\n**Level:** {}", class_feature.level)?;
 
         if !class_feature.desc.is_empty() {
             write!(f, "\n\n")?;

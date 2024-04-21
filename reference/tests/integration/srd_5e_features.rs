@@ -22,8 +22,7 @@ fn recklessattack() {
         "\
 # Reckless Attack
 
-**Class:** Barbarian
-**Level:** 2
+**Class:** Barbarian\\\n**Level:** 2
 
 Starting at 2nd level, you can throw aside all concern for defense to attack with fierce desperation. When you make your first attack on your turn, you can decide to attack recklessly. Doing so gives you advantage on melee weapon attack rolls using Strength during this turn, but attack rolls against you have advantage until your next turn.",
         class_feature.display_details().to_string(),
@@ -47,9 +46,7 @@ fn naturalrecovery() {
         "\
 # Natural Recovery
 
-**Class:** Druid
-**Subclass:** Land
-**Level:** 2
+**Class:** Druid\\\n**Subclass:** Land\\\n**Level:** 2
 
 Starting at 2nd level, you can regain some of your magical energy by sitting in meditation and communing with nature. During a short rest, you choose expended spell slots to recover. The spell slots can have a combined level that is equal to or less than half your druid level (rounded up), and none of the slots can be 6th level or higher. You can't use this feature again until you finish a long rest.
 
@@ -57,51 +54,3 @@ For example, when you are a 4th-level druid, you can recover up to two levels wo
         class_feature.display_details().to_string(),
     );
 }
-
-// #[test]
-// fn dwarven_resilience() {
-//     let species_traits = traits().unwrap();
-//     let species_trait = species_traits
-//         .iter()
-//         .find(|i| i.name == "Dwarven Resilience")
-//         .unwrap();
-
-//     assert_eq!(
-//         "`Dwarven Resilience`",
-//         species_trait.display_summary().to_string(),
-//     );
-
-//     assert_eq!(
-//         "\
-// # Dwarven Resilience
-
-// **Species:** Dwarf
-
-// You have advantage on saving throws against poison, and you have resistance against poison damage.",
-//         species_trait.display_details().to_string(),
-//     );
-// }
-
-// #[test]
-// fn dwarven_toughness() {
-//     let species_traits = traits().unwrap();
-//     let species_trait = species_traits
-//         .iter()
-//         .find(|i| i.name == "Dwarven Toughness")
-//         .unwrap();
-
-//     assert_eq!(
-//         "`Dwarven Toughness`",
-//         species_trait.display_summary().to_string(),
-//     );
-
-//     assert_eq!(
-//         "\
-// # Dwarven Toughness
-
-// **Subspecies:** Hill Dwarf
-
-// Your hit point maximum increases by 1, and it increases by 1 every time you gain a level.",
-//         species_trait.display_details().to_string(),
-//     );
-// }

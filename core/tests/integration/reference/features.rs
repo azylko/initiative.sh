@@ -7,8 +7,7 @@ fn fastmovement() {
         "\
 # Fast Movement
 
-**Class:** Barbarian
-**Level:** 5
+**Class:** Barbarian\\\n**Level:** 5
 
 Starting at 5th level, your speed increases by 10 feet while you aren't wearing heavy armor.
 
