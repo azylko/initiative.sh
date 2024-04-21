@@ -1,11 +1,13 @@
 pub use conditions::Condition;
 pub use equipment::{Item, ItemCategory, MagicItem};
+pub use features::Feature;
 pub use spell::Spell;
 pub use std::fmt;
 pub use traits::Trait;
 
 mod conditions;
 mod equipment;
+mod features;
 mod spell;
 mod traits;
 
@@ -14,6 +16,13 @@ use serde::Deserialize;
 pub fn conditions() -> Result<Vec<Condition>, String> {
     serde_json::from_str(include_str!(
         "../../../data/srd_5e/src/5e-SRD-Conditions.json",
+    ))
+    .map_err(|e| format!("{}", e))
+}
+
+pub fn features() -> Result<Vec<Feature>, String> {
+    serde_json::from_str(include_str!(
+        "../../../data/srd_5e/src/5e-SRD-Features.json",
     ))
     .map_err(|e| format!("{}", e))
 }
